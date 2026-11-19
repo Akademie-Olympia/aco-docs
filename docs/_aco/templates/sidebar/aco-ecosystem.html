@@ -1,0 +1,11 @@
+<div class="aco-eco">
+  <p class="aco-eco-caption">ACO Ecosystem</p>
+  <ul class="aco-eco-list">
+    {%- for key, name, blurb, url, prefix in aco_projects %}
+    {%- set current = (aco_current == key and not prefix) or (prefix and aco_current == key and pagename.startswith(prefix ~ '/')) %}
+    <li class="aco-eco-item{% if current %} current{% endif %}">
+      <a href="{{ url }}" title="{{ blurb }}">{{ name }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
