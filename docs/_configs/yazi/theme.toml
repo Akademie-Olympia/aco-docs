@@ -1,7 +1,9 @@
 # ============================================================================
-# YAZI THEME - Official Catppuccin Mocha (Pastel Theme)
+# YAZI THEME - follows the ACO desktop theme (aco-theme)
+# The "aco" flavor is rendered to ~/.config/aco/theme/yazi and linked into
+# flavors/ by aco-theme; it always matches the current light/dark mode.
 # ============================================================================
 
 [flavor]
-dark  = "catppuccin-mocha"
-light = "catppuccin-mocha"
+dark  = "aco"
+light = "aco"

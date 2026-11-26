@@ -45,7 +45,7 @@ Fast Wayland terminal with matching font, colours and Zsh.
 :link: yazi/index
 :link-type: doc
 
-Terminal file manager with the Catppuccin Mocha flavor and shell directory tracking.
+Terminal file manager in the ACO colours with shell directory tracking.
 :::
 
 :::{grid-item-card} PCManFM
@@ -66,7 +66,7 @@ Behaviour settings of the PCManFM file manager: trash, terminal, thumbnails, sid
 :link: gtk3/index
 :link-type: doc
 
-GTK 3 settings and a Catppuccin Mocha stylesheet for dialogs, menus and PCManFM.
+GTK 3 settings and an ACO stylesheet for dialogs, menus and PCManFM.
 :::
 
 :::{grid-item-card} GTK 4

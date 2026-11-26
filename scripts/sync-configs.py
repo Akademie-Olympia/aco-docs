@@ -23,7 +23,7 @@ COMPONENTS = {  # page directory -> (repository, files)
     "libfm": ("aco-libfm", ["libfm.conf"]),
     "pcmanfm": ("aco-pcmanfm", ["default/pcmanfm.conf"]),
     "wallpaper": ("aco-wallpaper", ["wallpaper.conf"]),
-    "waybar": ("aco-waybar", ["config.jsonc", "style.css", "power_menu.xml"]),
+    "waybar": ("aco-waybar", ["config.jsonc", "style.css"]),
     "yazi": ("aco-yazi", ["yazi.toml", "theme.toml", "package.toml"]),
 }
 
