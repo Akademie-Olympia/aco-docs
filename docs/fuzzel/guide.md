@@ -12,7 +12,7 @@ on the system looks and behaves the same.
 | `windowswitcher.sh` | {kbd}`Super + G` | Windows across all monitors and workspaces |
 | `powermenu.sh` | {kbd}`Super + Esc` | Lock, log out, suspend, reboot, shut down |
 | `settings.sh` | {kbd}`Super + I` | Settings hub: appearance, wallpaper, displays, network … |
-| `aco-theme menu` | logo menu > Erscheinungsbild | Light/dark, transparency, accent, theme |
+| `settings.sh appearance` | {kbd}`Super + I` > Erscheinungsbild, or the control centre tiles ({kbd}`Super + U`) | Light/dark, transparency, accent, theme |
 | `wallpaper.sh tui` | {kbd}`Super + Shift + W` | Choose a wallpaper |
 | `monitors.sh menu` | {kbd}`Super + Shift + D` | Monitor layout |
 | `aco keys --menu` | {kbd}`Super + K` | Search every shortcut |
