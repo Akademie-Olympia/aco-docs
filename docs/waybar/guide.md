@@ -1,41 +1,40 @@
 # Waybar in daily use
 
-Waybar is the slim bar at the top of the Hyprland session. It shows only what you need all the time – workspace, clock, volume, battery – and
-offers a power menu. Everything else (launching programs, switching windows, choosing a wallpaper) is deliberately **not** in the bar but on
-shortcuts and in the [Fuzzel](../fuzzel/index) menu.
+Waybar is the slim, translucent bar at the top of the Hyprland session. It shows only what you need all the time and keeps
+launching and switching on shortcuts and in the [Fuzzel](../fuzzel/index) launcher.
 
 ## Layout
 
 ```text
-┌───────────────┬──────────────────────┬─────────────────────────────┐
-│ 1 2 3 4 5 …   │  14:32  ·  19.11.2026 │  󰕾 65%    󰂀 82%    󰐥      │
-└───────────────┴──────────────────────┴─────────────────────────────┘
-  left             centre                 right
+┌──────────────────────┬──────────┬───────────────────────────────────┐
+│    Terminal         │  ━  •  •  │  󰤨  󰕾  󰂀 82%   26.11.  14:32  󰒓 │
+└──────────────────────┴──────────┴───────────────────────────────────┘
+  left                   centre     right
 ```
 
 | Area | Module | Function |
 | --- | --- | --- |
-| Left | `hyprland/workspaces` | Workspaces of the monitor; mouse wheel switches, the active one is underlined blue, urgent ones red |
-| Centre | `clock` | `HH:MM · DD.MM.YYYY`, calendar in the tooltip (hover) |
-| Right | `wireplumber` | Volume; click = mute, mouse wheel ±2 % (max. 100 %) |
-| Right | `battery` | Charge with icons, tooltip with remaining time and power in watts |
-| Right | `custom/power` | Power menu (see below) |
+| Left | `custom/logo` | System menu (left click): settings, appearance, lock, log out, suspend, reboot, shut down; right click opens the launcher |
+| Left | `hyprland/window` | Name of the focused app (`rewrite` maps classes such as `kitty` to "Terminal") |
+| Centre | `hyprland/workspaces` | Dots per workspace, the active one stretches into an accent pill; mouse wheel switches |
+| Right | `tray` | Tray icons of running apps |
+| Right | `network` | Icon only, details in the tooltip; click opens `nmtui` |
+| Right | `wireplumber` | Volume icon; click = mute, mouse wheel ±2 % (max. 100 %) |
+| Right | `battery` | Charge, tooltip with remaining time and power |
+| Right | `clock` | `DD.MM.  HH:MM`, calendar in the tooltip |
+| Right | `custom/settings` | Settings hub (`~/.config/hypr/settings.sh`, also {kbd}`Super + I`); right click opens the appearance picker |
 
-Height 26 px, at the top, no gap to the edge. The bar appears on **every** monitor; `all-outputs` is off, so each monitor shows its own workspaces.
+Height 32 px. The bar appears on **every** monitor; `all-outputs` is off, so each monitor shows its own workspaces.
 
 ### Battery states
 
-`battery` uses `BAT0` and `AC`. From **25 %** the display turns orange (`warning`), from **12 %** red (`critical`); while charging or plugged in it is
-green. If your device has a different battery name (`ls /sys/class/power_supply`), change `"bat"` in `config.jsonc`.
+From **25 %** the battery turns yellow (`warning`), from **12 %** red (`critical`); while charging or plugged in it is green.
 
-## Power menu
+## System menu
 
-The `󰐥` icon on the right offers two ways:
-
-1. **Left click** – a GTK menu from `power_menu.xml` right under the bar: shutdown, reboot, suspend, lock, log out.
-2. **Right click** – the Fuzzel menu `powermenu.sh` from the Hyprland package (also on {kbd}`Super + Esc`), keyboard only.
-
-The actions are `systemctl poweroff|reboot|suspend`, `hyprlock` and `hyprctl dispatch 'hl.dsp.exit()'`.
+The logo opens a GTK menu from `power_menu.xml`; the actions live in `config.jsonc` (`menu-actions`):
+`~/.config/hypr/settings.sh`, `aco-theme menu`, `hyprlock`, `hyprctl dispatch 'hl.dsp.exit()'` and `systemctl suspend|reboot|poweroff`.
+The keyboard variant is `powermenu.sh` from the Hyprland package ({kbd}`Super + Esc`).
 The bar therefore needs **Hyprland and Hyprlock** – see [Design and dependencies](design).
 
 ## Reload
@@ -49,39 +48,32 @@ Configuration errors are printed when you start `waybar` from a terminal (`wayba
 
 ## Appearance (`style.css`)
 
-Waybar uses GTK CSS. The file sets the font (JetBrainsMono Nerd Font, 12 px), Catppuccin Mocha colours and square corners (`border-radius: 0`).
-Every module has a CSS id (`#clock`, `#battery`, `#wireplumber`, `#custom-power`, `#workspaces button`); states are classes
-(`.active`, `.urgent`, `.muted`, `.charging`, `.warning`, `.critical`).
+Waybar uses GTK CSS. `style.css` holds only layout; font, colours and rounding come from the generated `~/.config/aco/theme/waybar/colors.css` (aco-theme).
+Every module has a CSS id (`#custom-logo`, `#window`, `#workspaces button`, `#tray`, `#network`, `#wireplumber`, `#battery`,
+`#clock`, `#custom-settings`); states are classes (`.active`, `.urgent`, `.muted`, `.charging`, `.warning`, `.critical`).
 
-| Role | Colour |
+| Role | Theme token (`@define-color` in colors.css) |
 | --- | --- |
-| Bar background | `#1e1e2e` |
-| Module surface | `#181825` with `#313244` as separator |
-| Volume | `#74c7ec` (Sapphire), muted `#6c7086` |
-| Battery | `#94e2d5` (Teal), charging `#a6e3a1`, warning `#fab387`, critical `#f38ba8` |
-| Active workspace | `#89b4fa` |
+| Bar background | `bar` = `bg_alt` at the surface opacity, blurred when transparency is on |
+| Module hover | `hover` (text at 10 %) |
+| Workspaces | dots in `pill`, the active one an `accent` pill, urgent `red` |
+| States | muted/disconnected `muted`, charging `green`, warning `yellow`, critical `red` |
+| Menus and tooltips | `menu` surface, `line` border, hovered item `accent` / `on_accent` |
 
 ## Add your own modules
 
-The bar is intentionally small. Adding a module takes two steps – for example network or window title:
+The bar is intentionally small. Adding a module takes two steps – for example CPU load:
 
 ```javascript
 // ~/.config/waybar/config.jsonc
-"modules-left":  [ "hyprland/workspaces", "hyprland/window" ],
-"modules-right": [ "network", "wireplumber", "battery", "custom/power" ],
+"modules-right": [ "tray", "cpu", "network", "wireplumber", "battery", "clock", "custom/settings" ],
 
-"hyprland/window": { "max-length": 50 },
-"network": {
-    "format-wifi": "󰤨 {essid}",
-    "format-ethernet": "󰈀 {ipaddr}",
-    "format-disconnected": "󰤭",
-    "on-click": "kitty -e nmtui"
-}
+"cpu": { "format": "󰍛 {usage}%", "interval": 5 }
 ```
 
 ```css
-/* ~/.config/waybar/style.css */
-#network { padding: 0 10px; background-color: #181825; color: #94e2d5; border-left: 1px solid #313244; }
+/* ~/.config/waybar/style.css – reuse the theme colours, never hex values */
+#cpu { margin: 4px 2px; padding: 0 9px; color: @subtext; }
 ```
 
 The `network` module needs `networkmanager`, Bluetooth needs `bluez-utils` (both are optional dependencies of the package).

@@ -9,12 +9,12 @@ alternative** next to Kitty and Ghostty, handy for quick tasks, older hardware o
 | Setting | Value | Effect |
 | --- | --- | --- |
 | `shell` | `/usr/bin/zsh` | Starts the ACO Zsh configuration directly |
-| `font` | JetBrainsMono Nerd Font, 10.5 pt | Same font as Kitty and Ghostty; Nerd symbols for Waybar, Yazi, Neovim |
-| `pad` | `8x8` | Inner padding so text does not touch the window edge |
+| `font` | aco-theme: JetBrainsMonoNL Nerd Font, 10.5 pt | Same font as Kitty and Ghostty, no ligatures; Nerd symbols |
+| `pad` | `10x10` | Inner padding so text does not touch the window edge |
 | `[bell]` | off | No beep or notification on `\a` |
-| `[cursor]` | block | |
-| `alpha` | `0.90` | Slightly transparent background (visible because Hyprland composites) |
-| Colours | Catppuccin Mocha | 16 terminal colours plus selection and cursor |
+| `[cursor]` | beam | |
+| `alpha` | aco-theme: 0.94, 1 with transparency off | Slightly transparent background |
+| Colours | aco-theme | 16 terminal colours plus selection and cursor, light or dark |
 
 ## Important keys
 
@@ -36,12 +36,11 @@ All bindings are listed in `man foot.ini` under `[key-bindings]`; override them 
 ```ini
 # ~/.config/foot/foot.ini
 [main]
-font=JetBrainsMono Nerd Font:size=12      # larger font
 initial-window-size-chars=120x32          # start size
-
-[colors-dark]
-alpha=1.0                                  # no transparency
 ```
+
+Font size and transparency are theme tokens shared with the other terminals:
+`mono_size = 12` in `~/.config/aco/theme.local.conf`, or `aco-theme transparency off`; new foot windows pick them up.
 
 Start it with `foot` or through the launcher ({kbd}`Super + Space`). The Hyprland default terminal is Kitty; to use Foot,
 change `local terminal = "kitty"` in `~/.config/hypr/hyprland.lua`.
@@ -52,18 +51,9 @@ change `local terminal = "kitty"` in `~/.config/hypr/hyprland.lua`.
 - **Configuration errors:** `foot --check-config` prints the line and the reason.
 - **No transparency:** `alpha` only works in `[colors-dark]` and needs a compositor.
 
-## Colour palette (Catppuccin Mocha)
+## Colours
 
-Every component uses the same colours so that terminal, launcher, file manager and dialogs match:
-
-| Role | Colour | Used for |
-| --- | --- | --- |
-| Background | `#1e1e2e` | Windows, terminal |
-| Darker background | `#181825` | Bars, lists, side panels |
-| Surface | `#313244` | Inputs, buttons, selection |
-| Text | `#cdd6f4` | Text |
-| Accent | `#89b4fa` | Focus, borders, selection |
-| Match | `#94e2d5` | Search matches |
+Colours come from the shared ACO theme and follow `aco-theme mode|accent|transparency`. The template is `aco-theme/theme.ini.tpl` in this component; the palette is documented in [aco-theme](https://github.com/Akademie-Olympia/aco-theme).
 
 ## Customise and reset
 
