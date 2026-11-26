@@ -1,20 +1,26 @@
 # Wallpaper in daily use
 
-The package consists of one command – `wallpaper` (short: `wp`) – and a configuration file. The command controls **hyprpaper**, the Hyprland
-wallpaper daemon, and remembers which image applies to which monitor.
+The package consists of one command – `wallpaper` (short: `wp`) – and a configuration file. The command draws the images with
+**swaybg** (one small process per monitor, shared memory, works on every GPU and in VMs) and remembers which image applies to which
+monitor. Without an own choice the default is the **generated ACO background**: licence-free, made from the theme palette, light or
+dark with the accent.
 
 ## How it fits together
 
 ```text
 wallpaper  ──reads──►   wallpaper.conf (folders, fit)
     │      ──stores──►  ~/.local/state/wallpaper/state (default + overrides)
-    ├──hyprctl hyprpaper …──►  hyprpaper  (draws the images)
+    ├──swaybg -o MON -i …───►  swaybg  (draws the image; new instance first, then the old one ends)
     ├──hyprctl monitors -j──►  which monitors exist (evaluated with jq)
-    └──fuzzel --dmenu───────►  selection menu (Super + Shift + W)
+    ├──rsvg-convert─────────►  ~/.cache/aco/wallpaper/generated/aco.png (from aco-theme's aco.svg)
+    └──aco-menu --grid──────►  preview grid (Super + Shift + W, Einstellungen > Hintergrundbild)
 ```
 
-- **hyprpaper** runs with `ipc = true` (see `hyprpaper.conf` in the Hyprland package). Images are **not** listed in its configuration;
-  the command sets them at runtime, and if hyprpaper is not running `wallpaper` starts it.
+- **Generated background:** aco-theme renders `aco-theme/aco.svg.tpl`; `wallpaper` converts it at the size of the largest monitor
+  whenever the theme or the monitor changes. A theme switch re-applies the assignment, so it updates only this image – an image you
+  chose stays.
+- **Own images:** put them into `~/Pictures/Wallpapers` (or add a folder with `wallpaper dirs add`) and pick them in the grid.
+  Previews are cached in `~/.cache/aco/wallpaper/thumbnails`.
 - The **state** lives in `~/.local/state/wallpaper/state`, outside the configuration. A package update never overwrites it.
 - On **Hyprland start** (`wallpaper apply --quiet`) and when a **monitor is plugged in** (`monitor.added` event) Hyprland restores the remembered
   assignment. The [monitor tool](https://aco-hypr.readthedocs.io/en/latest/configuration/) also calls `wallpaper apply` after a layout change.
@@ -30,7 +36,7 @@ In `wallpaper list` ★ marks the default and ● the overrides. `wallpaper curr
 
 | Command | Effect |
 | --- | --- |
-| `wallpaper` | Selection menu (Fuzzel): first the target (all/default or a monitor), then the image |
+| `wallpaper` | Selection menu: the target (only with several monitors), then a preview grid with *Zufällig* and *Darstellung* |
 | `wallpaper list` | All images found |
 | `wallpaper current` | Assignment per monitor |
 | `wallpaper set <image>` | Set the default |
@@ -45,8 +51,8 @@ In `wallpaper list` ★ marks the default and ● the overrides. `wallpaper curr
 | `wallpaper dirs` | Folders that are searched |
 | `wallpaper dirs add <folder>` / `dirs remove <folder>` | Add or drop an extra image folder (only the list changes, nothing is deleted) |
 | `wallpaper apply [--quiet]` | Re-apply the remembered assignment |
-| `wallpaper reload` | Restart hyprpaper and apply the assignment |
-| `wallpaper doctor` | Check dependencies (`hyprctl`, `hyprpaper`, `jq`, `fuzzel`) and setup |
+| `wallpaper reload` | Restart swaybg and apply the assignment |
+| `wallpaper doctor` | Check dependencies (`hyprctl`, `swaybg`, `rsvg-convert`, `magick`, `jq`, `aco-menu`) and setup |
 
 `<image>` is a file name from the library or a path. Names must be unambiguous; otherwise use the path.
 
@@ -54,7 +60,7 @@ In `wallpaper list` ★ marks the default and ● the overrides. `wallpaper curr
 
 | Variable | Default | Effect |
 | --- | --- | --- |
-| `WALLPAPER_DIRS` | `~/.local/share/arch-dotfiles/config/pictures`, `~/Pictures/Wallpapers`, `/usr/share/hypr/wall*.png` | Folders (recursive) and file patterns that are searched |
+| `WALLPAPER_DIRS` | `~/.local/share/arch-dotfiles/config/pictures`, `~/Pictures/Wallpapers`, `/usr/share/hypr/wall*.png` | Folders (recursive) and file patterns that are searched; the generated ACO background is always listed first |
 | `WALLPAPER_FIT` | `cover` | `cover` fills and crops, `contain` shows everything with borders, `tile` tiles, `fill` stretches |
 | `WALLPAPER_NOTIFY` | `1` | Notification after switching (`0` = off) |
 
@@ -90,7 +96,7 @@ free of commands other than variable assignments.
 
 ## Troubleshooting
 
-- **“hyprpaper not active”:** `wallpaper current` shows it. `wallpaper apply` restarts the daemon; otherwise check that `hyprpaper` is installed.
+- **“swaybg nicht aktiv”:** `wallpaper current` shows it; `wallpaper reload` starts swaybg again. Run it inside the Hyprland session (it needs `WAYLAND_DISPLAY`).
 - **“hyprctl not found”:** the command only works inside a Hyprland session.
 - **A new monitor stays black:** wait a moment (Hyprland applies the assignment with a one to two second delay) or run `wallpaper apply`.
 - **Image not found:** check `wallpaper dirs` and `wallpaper list`; recognised formats are png, jpg, jpeg, webp, gif, bmp, avif, jxl and tif/tiff.

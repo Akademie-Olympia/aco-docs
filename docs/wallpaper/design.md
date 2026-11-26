@@ -13,8 +13,8 @@ Why Wallpaper is built the way it is, what it needs from other ACO components, w
 
 | Component | Why |
 | --- | --- |
-| [Hyprland](https://aco-hypr.readthedocs.io/en/latest/) | `hyprctl` and `hyprpaper`; the session calls `wallpaper apply` at start and on plug-in |
-| [Fuzzel](https://aco-docs.readthedocs.io/en/latest/fuzzel/) | Selection menu (`wallpaper` without arguments) |
+| [Hyprland](https://aco-hypr.readthedocs.io/en/latest/) | `hyprctl` and `swaybg`; the session calls `wallpaper apply` at start and on plug-in |
+| [rofi](https://github.com/Akademie-Olympia/aco-rofi) | Selection menu and preview grid (`aco-menu`) |
 
 ## Who needs this configuration
 
@@ -30,8 +30,7 @@ From the `PKGBUILD` of this component; “Tested with” is the version installe
 | Package | Minimum | Tested with | Purpose |
 | --- | --- | --- | --- |
 | `aco-arch-dotfiles-core` | ≥ 0.3.0 | 0.3.0.r64.g6f4e3d6c742b-64 | The `aco` command, activation and synchronisation |
-| `hyprpaper` | – | 0.8.5-3 | Wallpaper daemon, controlled by the wallpaper command over IPC |
-| `fuzzel` | – | 1.15.0-3 | Application launcher and dmenu menu |
+| `swaybg` | – | 1.2.2-1 | Draws the wallpaper per monitor |
 | `jq` | – | 1.8.2-1 | Parse JSON from `hyprctl` (scripts) |
 | `findutils` | – | 4.11.0-1 | `find` for the image search |
 | `util-linux` | – | 2.42.4-1 | Basic tools used by the scripts (`flock`, `getopt` …) |

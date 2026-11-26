@@ -6,7 +6,7 @@ Why Waybar is built the way it is, what it needs from other ACO components, whic
 
 ## Why it is built this way
 
-- The bar shows **only what is permanent**: workspaces, clock, volume, battery, power. Launching programs and switching windows live on shortcuts and in the Fuzzel menu.
+- The bar shows **only what is permanent**: workspaces, clock, volume, battery, power. Launching programs and switching windows live on shortcuts and in the rofi menu.
 - It attaches to the compositor through the Hyprland IPC (`hyprland/workspaces`) and uses Hyprland's scripts for the power actions.
 
 ## What this configuration needs from others
