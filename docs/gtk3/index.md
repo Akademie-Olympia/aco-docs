@@ -1,7 +1,7 @@
 # GTK 3
 
 ::::{div} aco-hero
-**GTK 3 settings and a Catppuccin Mocha stylesheet for dialogs, menus and PCManFM.**
+**GTK 3 settings and the aco-theme stylesheet for dialogs, menus and PCManFM.**
 ::::
 
 ::::{grid} 1 2 2 3

@@ -10,7 +10,9 @@ on the system looks and behaves the same.
 | --- | --- | --- |
 | `fuzzel` | {kbd}`Super + Space`, {kbd}`Alt + Space`, {kbd}`Super + D` | Launch programs |
 | `windowswitcher.sh` | {kbd}`Super + G` | Windows across all monitors and workspaces |
-| `powermenu.sh` | {kbd}`Super + Esc` | Shutdown, reboot, suspend, lock |
+| `powermenu.sh` | {kbd}`Super + Esc` | Lock, log out, suspend, reboot, shut down |
+| `settings.sh` | {kbd}`Super + I` | Settings hub: appearance, wallpaper, displays, network … |
+| `aco-theme menu` | logo menu > Erscheinungsbild | Light/dark, transparency, accent, theme |
 | `wallpaper.sh tui` | {kbd}`Super + Shift + W` | Choose a wallpaper |
 | `monitors.sh menu` | {kbd}`Super + Shift + D` | Monitor layout |
 | `aco keys --menu` | {kbd}`Super + K` | Search every shortcut |
@@ -20,7 +22,7 @@ Pressing the key again closes the menu (`pkill -x fuzzel`).
 ## Using it
 
 Just type – the search matches name, description, category and command
-(`fields=name,generic,comment,categories,keywords,exec,filename`).
+(`fields=name,generic,comment,categories,keywords,filename`).
 {kbd}`↑`/{kbd}`↓` or {kbd}`Ctrl + P`/{kbd}`Ctrl + N` move, {kbd}`Enter` runs, {kbd}`Esc` cancels. The menu also closes when it loses focus.
 
 ## What this package sets
@@ -28,11 +30,11 @@ Just type – the search matches name, description, category and command
 | Setting | Value | Effect |
 | --- | --- | --- |
 | `terminal` | `kitty -e` | Programs flagged “run in terminal” open in Kitty |
-| `width` / `lines` | 44 / 10 | Width in characters, visible rows |
+| `anchor` / `width` / `lines` | centre / 40 / 7 | Spotlight-like search window in the middle of the screen |
+| `line-height` / paddings | 34 px, 16/14/10 | Large, calm rows |
 | `layer` | `overlay` | Appears above fullscreen windows |
-| `match-counter` | on | Shows the number of matches |
 | `icons-enabled` | on (Adwaita) | Application icons |
-| `border` | 1 px, accent colour | `radius=0` – square, matching Waybar and the terminals |
+| Font, colours, border | aco-theme | `~/.config/aco/theme/fuzzel/theme.ini`: UI font 13 pt, translucent surface, accent selection, rounded corners |
 
 ## Build your own menus
 
@@ -42,7 +44,7 @@ echo "$choice"
 ```
 
 Useful options: `--lines N`, `--width N`, `--anchor top-right`, `--hide-prompt`, `--index` (prints the number instead of the text).
-`powermenu.sh` in the Hyprland package is an example of a menu with its own position.
+`settings.sh` in the Hyprland package is an example of a menu built from a list of label/command pairs.
 
 ## Troubleshooting
 
@@ -50,18 +52,9 @@ Useful options: `--lines N`, `--width N`, `--anchor top-right`, `--hide-prompt`,
 - **Icons missing:** the `adwaita-icon-theme` package must be installed.
 - **No symbols in the font:** `ttf-jetbrains-mono-nerd` is missing.
 
-## Colour palette (Catppuccin Mocha)
+## Colours
 
-Every component uses the same colours so that terminal, launcher, file manager and dialogs match:
-
-| Role | Colour | Used for |
-| --- | --- | --- |
-| Background | `#1e1e2e` | Windows, terminal |
-| Darker background | `#181825` | Bars, lists, side panels |
-| Surface | `#313244` | Inputs, buttons, selection |
-| Text | `#cdd6f4` | Text |
-| Accent | `#89b4fa` | Focus, borders, selection |
-| Match | `#94e2d5` | Search matches |
+Colours come from the shared ACO theme and follow `aco-theme mode|accent|transparency`. The template is `aco-theme/theme.ini.tpl` in this component; the palette is documented in [aco-theme](https://github.com/Akademie-Olympia/aco-theme).
 
 ## Customise and reset
 
