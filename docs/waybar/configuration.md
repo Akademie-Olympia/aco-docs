@@ -15,10 +15,3 @@ The defaults of this package as shipped. Your editable copy lives in `~/.local/s
 :language: css
 :linenos:
 ```
-
-## `power_menu.xml`
-
-```{literalinclude} ../_configs/waybar/power_menu.xml
-:language: xml
-:linenos:
-```
