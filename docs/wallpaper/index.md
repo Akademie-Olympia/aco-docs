@@ -1,7 +1,7 @@
 # Wallpaper
 
 ::::{div} aco-hero
-**Wallpaper switcher for hyprpaper with per-monitor overrides and hot-plug restore.**
+**Wallpaper switcher (swaybg) with a generated ACO background, preview grid, per-monitor overrides and hot-plug restore.**
 ::::
 
 ::::{grid} 1 2 2 3

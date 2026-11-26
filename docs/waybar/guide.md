@@ -1,7 +1,7 @@
 # Waybar in daily use
 
 Waybar is the slim, translucent bar at the top of the Hyprland session. It shows only what you need all the time and keeps
-launching and switching on shortcuts and in the [Fuzzel](../fuzzel/index) launcher.
+launching and switching on shortcuts and in the rofi launcher (`aco-menu`, {kbd}`Super + Space`).
 
 ## Layout
 
