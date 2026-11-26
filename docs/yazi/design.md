@@ -41,12 +41,6 @@ From the `PKGBUILD` of this component; “Tested with” is the version installe
 | `ffmpeg` | – | 2:9.0.2-5 | Video preview |
 | `7zip` | – | 26.06-1 | Archive preview |
 
-## Yazi flavor (`package.toml`)
-
-| Flavor | Revision |
-| --- | --- |
-| yazi-rs/flavors:catppuccin-mocha | `1183892` |
-
 ## Shared foundations
 
 These rules apply to **every** ACO component:

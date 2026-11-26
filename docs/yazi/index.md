@@ -1,7 +1,7 @@
 # Yazi
 
 ::::{div} aco-hero
-**Terminal file manager with the Catppuccin Mocha flavor and shell directory tracking.**
+**Terminal file manager with the ACO flavor (follows aco-theme) and shell directory tracking.**
 ::::
 
 ::::{grid} 1 2 2 3

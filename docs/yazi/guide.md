@@ -43,8 +43,9 @@ The complete list is shown by Yazi itself with {kbd}`~`; it is always up to date
 | `scrolloff` | `5` | Keep five lines of context when scrolling |
 | `mouse_events` | click, scroll, touch, move, drag | Full mouse support |
 
-`theme.toml` selects the `catppuccin-mocha` flavor (shipped in the package under `flavors/`). `package.toml` pins the flavor version
-(Yazi package manager `ya pkg`) so everything stays reproducible.
+`theme.toml` selects the `aco` flavor for light and dark. aco-theme renders it from `aco-theme/flavor.toml.tpl` and
+`tmtheme.xml.tpl` (layout derived from the catppuccin flavor, MIT) and links it to `flavors/aco.yazi`; restart yazi after a
+theme switch. `package.toml` has no external dependencies.
 
 ## Previews and dependencies
 
