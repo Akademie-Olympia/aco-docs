@@ -22,6 +22,7 @@ launching and switching on shortcuts and in the [Fuzzel](../fuzzel/index) launch
 | Right | `wireplumber` | Volume icon; click = mute, mouse wheel ±2 % (max. 100 %) |
 | Right | `battery` | Charge, tooltip with remaining time and power |
 | Right | `clock` | `DD.MM.  HH:MM`, calendar in the tooltip |
+| Right | `custom/notification` | Bell from `swaync-client -swb`: accent while notifications wait, crossed out with *Nicht stören*; click opens the control centre ({kbd}`Super + U`), right click toggles *Nicht stören* |
 | Right | `custom/settings` | Settings hub (`~/.config/hypr/settings.sh`, also {kbd}`Super + I`); right click opens the appearance picker |
 
 Height 32 px. The bar appears on **every** monitor; `all-outputs` is off, so each monitor shows its own workspaces.
@@ -50,7 +51,7 @@ Configuration errors are printed when you start `waybar` from a terminal (`wayba
 
 Waybar uses GTK CSS. `style.css` holds only layout; font, colours and rounding come from the generated `~/.config/aco/theme/waybar/colors.css` (aco-theme).
 Every module has a CSS id (`#custom-logo`, `#window`, `#workspaces button`, `#tray`, `#network`, `#wireplumber`, `#battery`,
-`#clock`, `#custom-settings`); states are classes (`.active`, `.urgent`, `.muted`, `.charging`, `.warning`, `.critical`).
+`#clock`, `#custom-notification`, `#custom-settings`); states are classes (`.active`, `.urgent`, `.muted`, `.charging`, `.warning`, `.critical`).
 
 | Role | Theme token (`@define-color` in colors.css) |
 | --- | --- |
